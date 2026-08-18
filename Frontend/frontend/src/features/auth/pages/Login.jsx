@@ -2,20 +2,19 @@ import { useState } from "react"
 import { useSelector } from "react-redux"
 import { Link } from "react-router"
 import { useAuth } from "../hook/useAuth"
+import { useNavigate } from "react-router"
 
 const Login = () => {
+
+    const navigate = useNavigate()
+
     const { handleLogin } = useAuth()
     const { loading, error } = useSelector((state) => state.auth)
 
     const [email, setEmail] = useState("")
     const [contact, setContact] = useState("")
     const [password, setPassword] = useState("")
-
-
-
     const [showPassword, setShowPassword] = useState(false)
-
-
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -25,6 +24,8 @@ const Login = () => {
         setContact("")
         setEmail("")
         setPassword("")
+
+        navigate("/")
     }
 
     return (

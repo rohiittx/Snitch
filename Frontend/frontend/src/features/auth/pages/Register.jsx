@@ -2,8 +2,12 @@ import { useState } from "react"
 import { useSelector } from "react-redux"
 import { Link } from "react-router"
 import { useAuth } from "../hook/useAuth"
+import { useNavigate } from "react-router"
 
 const Register = () => {
+
+    const navigate = useNavigate()
+
     const { handleRegister } = useAuth()
     const { loading, error } = useSelector((state) => state.auth)
 
@@ -28,6 +32,8 @@ const Register = () => {
         setFullName("")
         setPassword("")
         setIsSeller(false)
+
+        navigate("/")
     }
 
     return (
@@ -175,6 +181,9 @@ const Register = () => {
                         </div>
 
                         {/* Submit Button */}
+                        <a href="/api/auth/google" className="w-full mt-3 py-2.5 px-4 bg-red-500 hover:bg-amber-300 active:scale-[0.99] text-zinc-950 font-semibold rounded-xl transition duration-200 flex items-center justify-center gap-2 shadow-lg shadow-amber-400/15 text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                            Continue with Google
+                        </a>
                         <button
                             type="submit"
                             disabled={loading}
