@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, register } from "../controllers/auth.controller.js";
+import { googleAuthCallback, login, register } from "../controllers/auth.controller.js";
 import { validatorRegisterUser } from "../validations/auth.validator.js";
 import passport from "passport"
 
@@ -12,9 +12,10 @@ router.post("/login", login)
 
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }))
 
-router.get("/google/callback", passport.authenticate("google", { failureRedirect: "/login" }), (req, res) => {
-    // Successful authentication, redirect to your desired route
-    res.redirect("http://localhost:5173/");
-});
+router.get("/google/callback", 
+    passport.authenticate("/google", { session:false, failureRedirect: "http://localhost:5173/login" }),
+    googleAuthCallback 
+)
+
 
 export default router;

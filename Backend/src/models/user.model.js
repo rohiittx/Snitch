@@ -17,12 +17,18 @@ const userSchema = new mongoose.Schema({
     },
     password:{
         type: String,
-        required: true
+        required: function(){ // agar hamara user google se register hua hai to password ki zarurat nahi hai, isliye humne ye condition lagayi hai
+            return !this.googleId
+        },
     },
     role:{
         type:String,
         enum: ["buyer", "seller"],
         default:"buyer"
+    },
+    googleId:{
+        type:String,
+        required:true
     }
 }, {timestamps:true})
 
